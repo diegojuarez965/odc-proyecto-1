@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1633203456 source:g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\convert.c
+	<cambioDeBase.h>
+
+1633203456 source:g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\cambiodebase.c
+	"cambioDeBase.h"
+
+1633203456 g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\cambiodebase.h
+
