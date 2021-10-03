@@ -12,3 +12,20 @@
 
 1633203544 g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\leerinput.h
 
+1633274121 source:c:\users\54291\documents\organizaci”n de computadoras\odc-proyecto-1\cambiodebase.c
+	"cambioDeBase.h"
+
+1633272856 c:\users\54291\documents\organizaci”n de computadoras\odc-proyecto-1\cambiodebase.h
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+
+1633274086 source:c:\users\54291\documents\organizaci”n de computadoras\odc-proyecto-1\convert.c
+	<cambioDeBase.h>
+	<leerInput.h>
+
+1633203751 c:\users\54291\documents\organizaci”n de computadoras\odc-proyecto-1\leerinput.h
+
+1633203751 source:c:\users\54291\documents\organizaci”n de computadoras\odc-proyecto-1\leerinput.c
+	"leerInput.h"
+
