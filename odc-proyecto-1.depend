@@ -33,3 +33,20 @@
 1633203751 source:c:\users\54291\documents\organizaci”n de computadoras\odc-proyecto-1\leerinput.c
 	"leerInput.h"
 
+1633456129 source:c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\cambiodebase.c
+	"cambioDeBase.h"
+
+1633444395 c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\cambiodebase.h
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+
+1633456213 source:c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\convert.c
+	"cambioDeBase.h"
+	"leerInput.h"
+
+1633453079 source:c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\leerinput.c
+	"leerInput.h"
+
+1633354068 c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\leerinput.h
+

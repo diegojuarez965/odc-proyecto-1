@@ -1,28 +1,44 @@
-#include <cambioDeBase.h>
-#include <leerInput.h>
+#include "cambioDeBase.h"
+#include "leerInput.h"
 
 int main(int argc, char *argv[])
 {
-    int * origen= (int *)malloc(sizeof(int));
+    int *origen;
+    origen= (int*)malloc(sizeof(int));
     *origen=16;
-    int * n= (int *)malloc(sizeof(int)*4);
-    n[0]=10;
-    n[1]=13;
-    n[2]=4;
-    n[3]=5;
-    int * cantDig= (int *)malloc(sizeof(int));
-    *cantDig=4;
-    int * mostrar= (int *)malloc(sizeof(int));
+    int *n;
+    n= (int*)malloc(sizeof(int));
+    n[0]= 15;
+    n[1]= 15;
+    n[2]= 15;
+    n[3]= 15;
+    n[4]= 15;
+    n[5]= 15;
+    n[6]= 15;
+    n[7]= 15;
+    n[8]= 15;
+    n[9]= 15;
+    n[10]= -1;
+    int *mostrar;
+    mostrar= (int*)malloc(sizeof(int));
     *mostrar=1;
-    printf("Resultado: %d",*(enteroXa10(origen,n,cantDig,mostrar)));
+    int* entero10= enteroXa10(origen,n,mostrar);
+    int i0 =0;
+    while(entero10[i0]!=(-1))
+    {
+        printf("%i",entero10[i0]);
+        i0++;
+    }
     printf("\n");
+    int* fraccion10= fraccionXa10(origen,n,mostrar);
+    i0 =0;
+    while(fraccion10[i0]!=(-1))
+    {
+        printf("%i",fraccion10[i0]);
+        i0++;
+    }
     printf("\n");
-    free(origen);
-    free(n);
-    free(cantDig);
-    free(mostrar);
-
-
+    //Test 2
     int *destino = (int*)malloc(sizeof(int));
     *destino = 2;
     int *cant = (int*)malloc(sizeof(int));
@@ -38,7 +54,8 @@ int main(int argc, char *argv[])
     int* base8 = entero10aX(destino,numero,cant,mostro);
     printf("\n");
     int i =0;
-    while(base8[i]!=(-1)){
+    while(base8[i]!=(-1))
+    {
         printf("%i",base8[i]);
         i++;
     }
