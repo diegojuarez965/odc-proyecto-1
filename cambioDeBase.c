@@ -19,7 +19,7 @@ int *enteroXa10 (int *origen, int *n, int *mostrar)
         }
     }
     int *toReturn;
-    toReturn= (int *)malloc(sizeof(int)*13);
+    toReturn= (int *)malloc(sizeof(int)*14);
     toReturn[0]= -1;
     int * i;
     i= (int *)malloc(sizeof(int));

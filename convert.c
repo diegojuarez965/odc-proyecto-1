@@ -9,16 +9,7 @@ int main(int argc, char *argv[])
     int *n;
     n= (int*)malloc(sizeof(int));
     n[0]= 15;
-    n[1]= 15;
-    n[2]= 15;
-    n[3]= 15;
-    n[4]= 15;
-    n[5]= 15;
-    n[6]= 15;
-    n[7]= 15;
-    n[8]= 15;
-    n[9]= 15;
-    n[10]= -1;
+    n[1] = -1;
     int *mostrar;
     mostrar= (int*)malloc(sizeof(int));
     *mostrar=1;
