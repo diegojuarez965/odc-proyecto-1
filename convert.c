@@ -41,9 +41,7 @@ int main(int argc, char *argv[])
     //Test 2
     int *destino = (int*)malloc(sizeof(int));
     *destino = 2;
-    int *cant = (int*)malloc(sizeof(int));
-    *cant = 5;
-    int *numero = (int*)malloc(sizeof(int)*(*cant));
+    int *numero = (int*)malloc(sizeof(int)*5);
     int *mostro = (int*)malloc(sizeof(int));
     *mostro = 1;
     numero[0] = 2;
@@ -51,7 +49,7 @@ int main(int argc, char *argv[])
     numero[2] = 0;
     numero[3] = 9;
     numero[4] = 9;
-    int* base8 = entero10aX(destino,numero,cant,mostro);
+    int* base8 = entero10aX(destino,numero,mostro);
     printf("\n");
     int i =0;
     while(base8[i]!=(-1))
@@ -63,7 +61,6 @@ int main(int argc, char *argv[])
     free(destino);
     free(base8);
     free(numero);
-    free(cant);
     free(mostro);
     return 0;
 }

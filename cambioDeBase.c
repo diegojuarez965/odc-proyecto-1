@@ -101,52 +101,92 @@ int *fraccionXa10 (int * origen, int * n, int * mostrar)
     return toReturn;
 }
 
-int *entero10aX(int *destino, int *n, int *cantDig, int *mostrar)
-{
-    int *resultadoTentativo = (int*)malloc(sizeof(int)*1000);
+
+int * entero10aX(int *destino, int *n, int *mostrar){
+    int *resultadoTentativo;
     int *resultadoFinal;
-    int *numero = (int*)malloc(sizeof(int));
-    int *dividendo = (int*)malloc(sizeof(int));
-    int *resto = (int*)malloc(sizeof(int));
-    int *i = (int*)malloc(sizeof(int));
-    int *j = (int*)malloc(sizeof(int));
-    numero[0] = 0;
+    long long unsigned int *numero;
+    long long unsigned int *dividendo;
+    long long unsigned int *resto;
+    int *i;
+    int *j;
+    resultadoTentativo = (int*)malloc(sizeof(int)*1000);                        //Le asigno este tamaño ya que no le pusimos limite a la parte entera.
+    numero = (long long unsigned int*)malloc(sizeof(long long unsigned int));
+    dividendo = (long long unsigned int*)malloc(sizeof(long long unsigned int));
+    resto = (long long unsigned int*)malloc(sizeof(long long unsigned int));
+    i = (int*)malloc(sizeof(int));
+    j = (int*)malloc(sizeof(int));
+    *numero = 0;
     *i = 0;
-    while(*i < *cantDig)
-    {
-        numero[0] *= 10;
-        numero[0] += n[*i];
+    while(n[*i] >= 0){ //Paso el numero decimal el cual cada digito ocupa 1 espacio en un arreglo de enteros, a un entero que ocupe una unica celda, es decir su representacion real.
+        *numero *= 10;
+        *numero += n[*i];
         *i = *i + 1;
     }
     *dividendo = *numero;
+    free(numero);
     *i = 0;
-    while(*dividendo!=0)
-    {
+    while(*dividendo!=0){   //Realizo el algoritmo de la division para la parte entera almacenando cada digito en cada celda de resultadoTentativo
         *resto = *dividendo % *destino;
         resultadoTentativo[*i] = *resto;
         *dividendo = *dividendo / *destino;
         if(*mostrar==1)
-        {
-            printf("Se obtuvo: %i\n",*resto);
-        }
+            printf("Se obtuvo el digito: %i en la base %i\n",resultadoTentativo[*i],*destino);
         *i = *i + 1;
     }
-    //Ver si el ultimo entero deberia ser -1. Usamos *cantDig?.
-    resultadoFinal = (int*)malloc(sizeof(int)*((*i)));
+    free(dividendo);
+    free(resto);
+    resultadoFinal = (int*)malloc(sizeof(int)*((*i)+1)); //Le sumo uno, ya que necesito agregar el digito finalizador '-1'.
     *j = 0;
-    while(*i>0)
-    {
+    while(*i>0){ //Finalmente ordeno los digitos que obtuve guardandolos en resultadoFinal
         resultadoFinal[*j] = resultadoTentativo[(*i)-1];
         *j = *j + 1;
         *i = *i - 1;
     }
-    resultadoFinal[*j] = (0-1);
-    free(numero);
-    free(dividendo);
-    free(resto);
+    resultadoFinal[*j] = -1;
+    free(resultadoTentativo);
     free(i);
     free(j);
-    free(resultadoTentativo);
     return resultadoFinal;
 }
 
+int *fraccion10aX(int *destino, int *n, int *mostrar){
+    int *resultado;
+    double *numero;
+    double *aux;
+    int *i;
+    resultado = (int*)malloc(sizeof(int)*6);
+    numero = (double*)malloc(sizeof(double));
+    aux = (double*)malloc(sizeof(double));
+    i = (int*)malloc(sizeof(int));
+    *i = 0;
+    *numero = 0;
+    while(n[*i]>=0){ //Paso el numero decimal el cual cada digito ocupa 1 espacio en un arreglo de enteros, a un real que ocupe una unica celda, o sea a su representacion real.
+        *numero = *numero * 10;
+        *numero = *numero + n[*i];
+        *i = *i + 1;
+    }
+    *numero = *numero / pow(10,*i);
+    *i = 0;
+    while(*i<5 && *numero>0){    //Realizo el algoritmo de la multiplicacion y almaceno la parte entera en cada celda de resultado.
+        *numero = *numero * (*destino);
+        *numero = modf(*numero, &(*aux));
+        resultado[*i] = (int)*aux;
+        if(*mostrar==1)
+            printf("Se obtuvo el digito: %i en la base %i\n",resultado[*i],*destino);
+        *i = *i +1;
+    }
+    resultado[*i] = -1;
+    free(numero);
+    free(aux);
+    free(i);
+    return resultado;
+}
+
+int *enteroXaY(int *origen, int *destino, int *n, int *mostrar){
+
+}
+
+int *fraccionXaY(int *origen, int *destino, int *n, int *mostrar){
+
+}
