@@ -3,13 +3,15 @@
 
 int main(int argc, char *argv[])
 {
+    printf("Test 1:\n");
     int *origen;
     origen= (int*)malloc(sizeof(int));
-    *origen=16;
+    *origen=2;
     int *n;
-    n= (int*)malloc(sizeof(int));
-    n[0]= 15;
-    n[1] = -1;
+    n= (int*)malloc(sizeof(int)*11);
+    n[0]= 1;
+    n[1]= 1;
+    n[2]= -1;
     int *mostrar;
     mostrar= (int*)malloc(sizeof(int));
     *mostrar=1;
@@ -29,12 +31,10 @@ int main(int argc, char *argv[])
         i0++;
     }
     printf("\n");
-    //Test 2
+    printf("Test 2:\n");
     int *destino = (int*)malloc(sizeof(int));
     *destino = 2;
-    int *cant = (int*)malloc(sizeof(int));
-    *cant = 5;
-    int *numero = (int*)malloc(sizeof(int)*(*cant));
+    int *numero = (int*)malloc(sizeof(int)*5);
     int *mostro = (int*)malloc(sizeof(int));
     *mostro = 1;
     numero[0] = 2;
@@ -42,19 +42,44 @@ int main(int argc, char *argv[])
     numero[2] = 0;
     numero[3] = 9;
     numero[4] = 9;
-    int* base8 = entero10aX(destino,numero,cant,mostro);
-    printf("\n");
+    int* base8 = entero10aX(destino,numero,mostro);
     int i =0;
     while(base8[i]!=(-1))
     {
         printf("%i",base8[i]);
         i++;
     }
-    printf("\n");
     free(destino);
     free(base8);
     free(numero);
-    free(cant);
     free(mostro);
+    printf("\n");
+    printf("Test 3:\n");
+    int * origen3= (int*)malloc(sizeof(int));
+    *origen3= 16;
+    int * destino3= (int*)malloc(sizeof(int));
+    *destino3= 2;
+    int * mostrar3= (int*)malloc(sizeof(int));
+    *mostrar3= 1;
+    int * n3= (int*)malloc(sizeof(int)*11);
+    n3[0]=1;
+    n3[1]=1;
+    n3[2]=-1;
+    int *entero= enteroXaY(origen3,destino3,n3,mostrar3);
+    int i3 =0;
+    while(entero[i3]!=(-1))
+    {
+        printf("%i",entero[i3]);
+        i3++;
+    }
+    printf("\n");
+    int* fraccion= fraccionXaY(origen3,destino3,n3,mostrar);
+    i3 =0;
+    while(fraccion[i3]!=(-1))
+    {
+        printf("%i",fraccion[i3]);
+        i3++;
+    }
+    printf("\n");
     return 0;
 }

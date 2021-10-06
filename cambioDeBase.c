@@ -4,51 +4,67 @@ int *enteroXa10 (int *origen, int *n, int *mostrar)
 {
     int *ultDig;
     ultDig= (int *)malloc(sizeof(int));
-    for(int i=0; n[i]!=-1; i++)
-        *ultDig=i;
+    *ultDig=0;
+    while(n[*ultDig]!=-1)
+        *ultDig= *ultDig+1;
+    *ultDig=*ultDig-1;
     long long unsigned int *suma;
     suma= (long long unsigned int *)malloc(sizeof(long long unsigned int));
     *suma= 0;
-    for(int i=*ultDig,exp=0; i>=0; i--,exp++)
+    int *expo;
+    expo= (int *)malloc(sizeof(int));
+    *expo= 0;
+    while(*ultDig>=0)
     {
-        *suma= *suma+(n[i]*pow(*origen,exp));
+        *suma= *suma+(n[*ultDig]*pow(*origen,*expo));
         if(*mostrar==1)
         {
-            printf("Operacion realizada: %.0lf + %d * %d ^ %d\n",*suma-(n[i]*pow(*origen,exp)),n[i],*origen,exp);
-            printf("Se obtuvo parcialmente %I64u\n",*suma);
+            printf("Operacion realizada: %.0lf + %d * %d ^ %d\n",*suma-(n[*ultDig]*pow(*origen,*expo)),n[*ultDig],*origen,*expo);
+            printf("Se obtuvo parcialmente %I64u en la base 10\n",*suma);
         }
-    }
-    int *toReturn;
-    toReturn= (int *)malloc(sizeof(int)*14);
-    toReturn[0]= -1;
-    int * i;
-    i= (int *)malloc(sizeof(int));
-    *i= 0;
-    int *f;
-    f= (int *)malloc(sizeof(int));
-    *f= 1;
-    int *aux;
-    aux= (int *)malloc(sizeof(int));
-    while(*suma != 0)
-    {
-        toReturn[*f]= *suma%10;
-        *f= *f+1;
-        *suma= *suma/10;
-    }
-    *f= *f-1;
-    while(*i<*f)
-    {
-        *aux= toReturn[*i];
-        toReturn[*i]= toReturn[*f];
-        toReturn[*f]= *aux;
-        *i= *i+1;
-        *f= *f-1;
+        *ultDig=*ultDig-1;
+        *expo=*expo+1;
     }
     free(ultDig);
-    free(suma);
-    free(i);
-    free(f);
-    free(aux);
+    free(expo);
+    int *toReturn;
+    toReturn= (int *)malloc(sizeof(int)*14);
+    if(*suma==0)
+    {
+        toReturn[0]=0;
+        toReturn[1]=-1;
+    }
+    else
+    {
+        toReturn[0]= -1;
+        int * i;
+        i= (int *)malloc(sizeof(int));
+        *i= 0;
+        int *f;
+        f= (int *)malloc(sizeof(int));
+        *f= 1;
+        int *aux;
+        aux= (int *)malloc(sizeof(int));
+        while(*suma != 0)
+        {
+            toReturn[*f]= *suma%10;
+            *f= *f+1;
+            *suma= *suma/10;
+        }
+        free(suma);
+        *f= *f-1;
+        while(*i<*f)
+        {
+            *aux= toReturn[*i];
+            toReturn[*i]= toReturn[*f];
+            toReturn[*f]= *aux;
+            *i= *i+1;
+            *f= *f-1;
+        }
+        free(i);
+        free(f);
+        free(aux);
+    }
     return toReturn;
 }
 
@@ -57,15 +73,25 @@ int *fraccionXa10 (int * origen, int * n, int * mostrar)
     double *suma;
     suma= (double *)malloc(sizeof(double));
     *suma= 0;
-    for(int i=0,exp=-1; n[i]!=-1; i++,exp--)
+    int *it;
+    it= (int *)malloc(sizeof(int));
+    *it= 0;
+    int *expo;
+    expo= (int *)malloc(sizeof(int));
+    *expo= -1;
+    while(n[*it]!=-1)
     {
-        *suma=*suma+(n[i]*pow(*origen,exp));
+        *suma= *suma+(n[*it]*pow(*origen,*expo));
         if(*mostrar==1)
         {
-            printf("Operacion realizada: %lf + %d * %d ^ %d\n",*suma-(n[i]*pow(*origen,exp)),n[i],*origen,exp);
-            printf("Se obtuvo parcialmente %lf\n",*suma);
+            printf("Operacion realizada: %lf + %d * %d ^ %d\n",*suma-(n[*it]*pow(*origen,*expo)),n[*it],*origen,*expo);
+            printf("Se obtuvo parcialmente %lf en la base 10\n",*suma);
         }
+        *it=*it+1;
+        *expo=*expo-1;
     }
+    free(it);
+    free(expo);
     int *toReturn;
     toReturn= (int *)malloc(sizeof(int)*6);
     int *i;
@@ -101,52 +127,123 @@ int *fraccionXa10 (int * origen, int * n, int * mostrar)
     return toReturn;
 }
 
-int *entero10aX(int *destino, int *n, int *cantDig, int *mostrar)
+int * entero10aX(int *destino, int *n, int *mostrar)
 {
-    int *resultadoTentativo = (int*)malloc(sizeof(int)*1000);
+    int *resultadoTentativo;
     int *resultadoFinal;
-    int *numero = (int*)malloc(sizeof(int));
-    int *dividendo = (int*)malloc(sizeof(int));
-    int *resto = (int*)malloc(sizeof(int));
-    int *i = (int*)malloc(sizeof(int));
-    int *j = (int*)malloc(sizeof(int));
-    numero[0] = 0;
+    long long unsigned int *numero;
+    long long unsigned int *dividendo;
+    long long unsigned int *resto;
+    int *i;
+    int *j;
+    numero = (long long unsigned int*)malloc(sizeof(long long unsigned int));
+    i = (int*)malloc(sizeof(int));
+    *numero = 0;
     *i = 0;
-    while(*i < *cantDig)
+    while(n[*i] >= 0)  //Paso el numero decimal el cual cada digito ocupa 1 espacio en un arreglo de enteros, a un entero que ocupe una unica celda, es decir su representacion real.
     {
-        numero[0] *= 10;
-        numero[0] += n[*i];
+        *numero *= 10;
+        *numero += n[*i];
         *i = *i + 1;
     }
-    *dividendo = *numero;
-    *i = 0;
-    while(*dividendo!=0)
+    if(*numero==0)
     {
-        *resto = *dividendo % *destino;
-        resultadoTentativo[*i] = *resto;
-        *dividendo = *dividendo / *destino;
+        resultadoFinal= (int *)malloc(sizeof(int)*2);
+        resultadoFinal[0]=0;
+        resultadoFinal[1]=-1;
         if(*mostrar==1)
-        {
-            printf("Se obtuvo: %i\n",*resto);
-        }
-        *i = *i + 1;
+            printf("Se obtuvo el digito: 0 en la base %i\n",*destino);
+        free(numero);
+        free(i);
     }
-    //Ver si el ultimo entero deberia ser -1. Usamos *cantDig?.
-    resultadoFinal = (int*)malloc(sizeof(int)*((*i)));
-    *j = 0;
-    while(*i>0)
+    else
     {
-        resultadoFinal[*j] = resultadoTentativo[(*i)-1];
-        *j = *j + 1;
-        *i = *i - 1;
+        resultadoTentativo = (int*)malloc(sizeof(int)*40);                        //Le asigno este tamaño ya que no le pusimos limite a la parte entera.
+        dividendo = (long long unsigned int*)malloc(sizeof(long long unsigned int));
+        resto = (long long unsigned int*)malloc(sizeof(long long unsigned int));
+        *dividendo = *numero;
+        free(numero);
+        *i = 0;
+        while(*dividendo!=0)    //Realizo el algoritmo de la division para la parte entera almacenando cada digito en cada celda de resultadoTentativo
+        {
+            *resto = *dividendo % *destino;
+            resultadoTentativo[*i] = *resto;
+            *dividendo = *dividendo / *destino;
+            if(*mostrar==1)
+                printf("Se obtuvo el digito: %i en la base %i\n",resultadoTentativo[*i],*destino);
+            *i = *i + 1;
+        }
+        free(dividendo);
+        free(resto);
+        resultadoFinal = (int*)malloc(sizeof(int)*((*i)+1)); //Le sumo uno, ya que necesito agregar el digito finalizador '-1'.
+        j = (int*)malloc(sizeof(int));
+        *j = 0;
+        while(*i>0)  //Finalmente ordeno los digitos que obtuve guardandolos en resultadoFinal
+        {
+            resultadoFinal[*j] = resultadoTentativo[(*i)-1];
+            *j = *j + 1;
+            *i = *i - 1;
+        }
+        resultadoFinal[*j] = -1;
+        free(resultadoTentativo);
+        free(i);
+        free(j);
     }
-    resultadoFinal[*j] = (0-1);
-    free(numero);
-    free(dividendo);
-    free(resto);
-    free(i);
-    free(j);
-    free(resultadoTentativo);
     return resultadoFinal;
 }
 
+int *fraccion10aX(int *destino, int *n, int *mostrar)
+{
+    int *resultado;
+    double *numero;
+    double *aux;
+    int *i;
+    resultado = (int*)malloc(sizeof(int)*6);
+    numero = (double*)malloc(sizeof(double));
+    aux = (double*)malloc(sizeof(double));
+    i = (int*)malloc(sizeof(int));
+    *i = 0;
+    *numero = 0;
+    while(n[*i]>=0)  //Paso el numero decimal el cual cada digito ocupa 1 espacio en un arreglo de enteros, a un real que ocupe una unica celda, o sea a su representacion real.
+    {
+        *numero = *numero * 10;
+        *numero = *numero + n[*i];
+        *i = *i + 1;
+    }
+    if(*numero==0)
+    {
+        resultado[0]=0;
+        resultado[1]=-1;
+        if(*mostrar==1)
+            printf("Se obtuvo el digito: 0 en la base %i\n",*destino);
+    }
+    else
+    {
+        *numero = *numero / pow(10,*i);
+        *i = 0;
+        while(*i<5 && *numero>0)     //Realizo el algoritmo de la multiplicacion y almaceno la parte entera en cada celda de resultado.
+        {
+            *numero = *numero * (*destino);
+            *numero = modf(*numero, &(*aux));
+            resultado[*i] = (int)*aux;
+            if(*mostrar==1)
+                printf("Se obtuvo el digito: %i en la base %i\n",resultado[*i],*destino);
+            *i = *i +1;
+        }
+        resultado[*i] = -1;
+    }
+    free(numero);
+    free(aux);
+    free(i);
+    return resultado;
+}
+
+int *enteroXaY(int *origen, int *destino, int *n, int *mostrar)
+{
+    return entero10aX(destino,enteroXa10(origen,n,mostrar),mostrar);
+}
+
+int *fraccionXaY(int *origen, int *destino, int *n, int *mostrar)
+{
+    return fraccion10aX(destino,fraccionXa10(origen,n,mostrar),mostrar);
+}
