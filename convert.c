@@ -31,21 +31,28 @@ int main(int argc, char *argv[])
     *destino = 0;
     *v = 0;
     esValido = inputValido(argv,cantArg,numEntero,numFraccionario,origen,destino,v);
-    if(*esValido==1){
+    if(*esValido==1)
+    {
         inputParteEntera = (int*)malloc(sizeof(int)*10);
         inputParteFraccionaria = (int*)malloc(sizeof(int)*5);
-        if(*destino==10 && *origen==10){                //Muestro los resultados de las conversiones.
+        if(*destino==10 && *origen==10)                 //Muestro los resultados de las conversiones.
+        {
             printf("Conversion de Base 10 a Base 10\n");
-            printf("El resultado es: %s,%s\n",numEntero,numFraccionario);
+            if(numFraccionario[0]=='\0')
+                printf("El resultado es: %s.0\n",numEntero);
+            else
+                printf("El resultado es: %s,%s\n",numEntero,numFraccionario);
         }
-        else {
+        else
+        {
             mapearLetras(numEntero,inputParteEntera);
             mapearLetras(numFraccionario,inputParteFraccionaria);
             free(numEntero);
             free(numFraccionario);
             resultadoEntero = (int*)malloc(sizeof(int)*41);
             resultadoFraccionario = (int*)malloc(sizeof(int)*6);
-            if(*origen==10){
+            if(*origen==10)
+            {
                 printf("Conversion de Base 10 a Base %i\n",*destino);
                 resultadoEntero = entero10aX(destino,inputParteEntera,v);
                 resultadoFraccionario = fraccion10aX(destino,inputParteFraccionaria,v);
@@ -55,7 +62,8 @@ int main(int argc, char *argv[])
                 mapearDigitos(numFraccionario,resultadoFraccionario);
                 printf("El resultado es: %s,%s\n",numEntero,numFraccionario);
             }
-            else if(*destino==10){
+            else if(*destino==10)
+            {
                 printf("Conversion de Base %i a Base 10\n",*origen);
                 resultadoEntero = enteroXa10(origen,inputParteEntera,v);
                 resultadoFraccionario = fraccionXa10(origen,inputParteFraccionaria,v);
@@ -65,7 +73,8 @@ int main(int argc, char *argv[])
                 mapearDigitos(numFraccionario,resultadoFraccionario);
                 printf("El resultado es: %s,%s\n",numEntero,numFraccionario);
             }
-            else {
+            else
+            {
                 printf("Conversion de Base %i a Base %i con Base 10 como intermediario.\n",*origen,*destino);
                 resultadoEntero = enteroXaY(origen,destino,inputParteEntera,v);
                 resultadoFraccionario = fraccionXaY(origen,destino,inputParteFraccionaria,v);
@@ -84,7 +93,8 @@ int main(int argc, char *argv[])
         free(inputParteFraccionaria);
 
     }
-    else {
+    else
+    {
         printf("El formato ingresado no es valido.");
         exit(EXIT_FAILURE);
     }
