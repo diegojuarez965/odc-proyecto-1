@@ -1,9 +1,99 @@
 #include "cambioDeBase.h"
 #include "leerInput.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {
-    printf("Test 1:\n");
+    int *cantArg;
+    int *esValido;
+    int *origen;
+    int *destino;
+    int *v;
+    int *inputParteEntera;
+    int *inputParteFraccionaria;
+    int *resultadoEntero;
+    int *resultadoFraccionario;
+    char *numEntero;
+    char *numFraccionario;
+
+    cantArg = (int*)malloc(sizeof(int));
+    numEntero = (char*)malloc(sizeof(char)*10);
+    numFraccionario = (char*)malloc(sizeof(char)*5);
+    origen = (int*)malloc(sizeof(int));
+    destino = (int*)malloc(sizeof(int));
+    v = (int*)malloc(sizeof(int));
+    esValido = (int*)malloc(sizeof(int));
+
+    *cantArg = argc;
+    esValido = inputValido(argv,cantArg,numEntero,numFraccionario,origen,destino,v);
+    if(*esValido==1){
+        inputParteEntera = (int*)malloc(sizeof(int)*10);
+        inputParteFraccionaria = (int*)malloc(sizeof(int)*5);
+        if(*destino==10 && *origen==10){                //Muestro los resultados de las conversiones.
+            printf("Conversion de Base 10 a Base 10\n");
+            printf("El resultado es: %s,%s\n",numEntero,numFraccionario);
+        }
+        else {
+            mapearLetras(numEntero,inputParteEntera);
+            mapearLetras(numFraccionario,inputParteFraccionaria);
+            free(numEntero);
+            free(numFraccionario);
+            resultadoEntero = (int*)malloc(sizeof(int)*41);
+            resultadoFraccionario = (int*)malloc(sizeof(int)*6);
+            if(*origen==10){
+                printf("Conversion de Base 10 a Base %i\n",*destino);
+                resultadoEntero = entero10aX(destino,inputParteEntera,v);
+                resultadoFraccionario = fraccion10aX(destino,inputParteFraccionaria,v);
+                numEntero = (char*)malloc(sizeof(char)*41);
+                numFraccionario = (char*)malloc(sizeof(char)*6);
+                mapearDigitos(numEntero,resultadoEntero);
+                mapearDigitos(numFraccionario,resultadoFraccionario);
+                printf("El resultado es: %s,%s\n",numEntero,numFraccionario);
+            }
+            else if(*destino==10){
+                printf("Conversion de Base %i a Base 10\n",*origen);
+                resultadoEntero = enteroXa10(origen,inputParteEntera,v);
+                resultadoFraccionario = fraccionXa10(origen,inputParteFraccionaria,v);
+                numEntero = (char*)malloc(sizeof(char)*41);
+                numFraccionario = (char*)malloc(sizeof(char)*6);
+                mapearDigitos(numEntero,resultadoEntero);
+                mapearDigitos(numFraccionario,resultadoFraccionario);
+                printf("El resultado es: %s,%s\n",numEntero,numFraccionario);
+            }
+            else {
+                printf("Conversion de Base %i a Base %i con Base 10 como intermediario.\n",*origen,*destino);
+                resultadoEntero = enteroXaY(origen,destino,inputParteEntera,v);
+                resultadoFraccionario = fraccionXaY(origen,destino,inputParteFraccionaria,v);
+                numEntero = (char*)malloc(sizeof(char)*41);
+                numFraccionario = (char*)malloc(sizeof(char)*6);
+                mapearDigitos(numEntero,resultadoEntero);
+                mapearDigitos(numFraccionario,resultadoFraccionario);
+                printf("El resultado es: %s,%s\n",numEntero,numFraccionario);
+            }
+
+            free(resultadoEntero);
+            free(resultadoFraccionario);
+        }
+
+        free(inputParteEntera);
+        free(inputParteFraccionaria);
+
+    }
+    else {
+        printf("El formato ingresado no es valido.");
+        exit(EXIT_FAILURE);
+    }
+    free(cantArg);
+    free(numEntero);
+    free(numFraccionario);
+    free(origen);
+    free(destino);
+    free(v);
+    exit(EXIT_SUCCESS);
+    return 0;
+}
+/*printf("Test 1:\n");
     int *origen;
     origen= (int*)malloc(sizeof(int));
     *origen=2;
@@ -80,6 +170,4 @@ int main(int argc, char *argv[])
         printf("%i",fraccion[i3]);
         i3++;
     }
-    printf("\n");
-    return 0;
-}
+    printf("\n");*/
