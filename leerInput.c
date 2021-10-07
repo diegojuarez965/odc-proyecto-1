@@ -55,17 +55,21 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
                     if((*i+1)<*cantArg && *esNumeroValido(argv[*i+1],aux))
                     {
                         *origen = atoi(argv[*i+1]);
+                        if(*origen<2 || *origen>16){
+                            printf("La base origen ingresada no pertenece al rango [2,16].\n");
+                            exit(EXIT_FAILURE);
+                        }
                         *i = *i + 1;
                     }
                     else
                     {
-                        printf("El formato ingresado no es valido.");
+                        printf("El formato ingresado no es valido.\n");
                         exit(EXIT_FAILURE);
                     }
                 }
                 else
                 {
-                    printf("El formato ingresado no es valido.");
+                    printf("El formato ingresado no es valido.\n");
                     exit(EXIT_FAILURE);
                 }
             }
@@ -78,20 +82,20 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
                     {
                         *destino = atoi(argv[*i+1]);
                         if(*destino<2 || *destino>16){
-                            printf("La base destino ingresada no pertenece al rango [2,16].");
+                            printf("La base destino ingresada no pertenece al rango [2,16].\n");
                             exit(EXIT_FAILURE);
                         }
                         *i = *i + 1;
                     }
                     else
                     {
-                        printf("El formato ingresado no es valido.");
+                        printf("El formato ingresado no es valido.\n");
                         exit(EXIT_FAILURE);
                     }
                 }
                 else
                 {
-                    printf("El formato ingresado no es valido.");
+                    printf("El formato ingresado no es valido.\n");
                     exit(EXIT_FAILURE);
                 }
             }
@@ -101,7 +105,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
                     *v = 1;
                 else
                 {
-                    printf("El formato ingresado no es valido.");
+                    printf("El formato ingresado no es valido.\n");
                     exit(EXIT_FAILURE);
                 }
             }
@@ -116,19 +120,19 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
                     }
                     else
                     {
-                        printf("El formato ingresado no es valido.");
+                        printf("El formato ingresado no es valido.\n");
                         exit(EXIT_FAILURE);
                     }
                 }
                 else
                 {
-                    printf("El formato ingresado no es valido.");
+                    printf("El formato ingresado no es valido.\n");
                     exit(EXIT_FAILURE);
                 }
             }
             else
             {
-                printf("El formato ingresado no es valido.");
+                printf("El formato ingresado no es valido.\n");
                 exit(EXIT_FAILURE);
             }
             *i = *i + 1;
@@ -142,7 +146,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
         while(argv[*numeroPos][*i]!='.' && argv[*numeroPos][*i]!='\0')    //Me fijo que el numero respete la cantidad de digitos establecida, 10 para la entera y 5 para la fraccionaria.
                 *i = *i + 1;
         if((argv[*numeroPos][*i]=='.' || argv[*numeroPos][*i]=='\0') && *i>10){
-            printf("El numero ingresado excede el limite de 10 digitos enteros.");
+            printf("El numero ingresado excede el limite de 10 digitos enteros.\n");
             exit(EXIT_FAILURE);
         }
         iPunto = (int*)malloc(sizeof(int));
@@ -150,7 +154,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
         while(argv[*numeroPos][*i]!='\0')
             *i = *i + 1;
         if(argv[*numeroPos][*i]=='\0' && ((*i-1)-*iPunto)>5){
-            printf("El numero ingresado excede el limite de 5 digitos fraccionarios.");
+            printf("El numero ingresado excede el limite de 5 digitos fraccionarios.\n");
             exit(EXIT_FAILURE);
         }
         *j = 0;
@@ -160,7 +164,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
         }
         numEntero[*j] = '\0';
         if(*esNumeroValido(numEntero,origen)!=1) {
-            printf("La parte entera del numero ingresado no respeta la base origen ingresada.");
+            printf("La parte entera del numero ingresado no respeta la base origen ingresada.\n");
             exit(EXIT_FAILURE);
         }
         *j = 0;
@@ -170,7 +174,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
         }
         numFraccionario[*j] = '\0';
         if(*esNumeroValido(numFraccionario,origen)!=1){
-            printf("La parte fracionaria del numero ingresado no respeta la base origen ingresada.");
+            printf("La parte fracionaria del numero ingresado no respeta la base origen ingresada.\n");
             exit(EXIT_FAILURE);
         }
 
@@ -181,7 +185,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
     }
     else
     {
-        printf("La cantidad de parametros ingresada no es correcta.");
+        printf("La cantidad de parametros ingresada no es correcta.\n");
         exit(EXIT_FAILURE);
     }
 
@@ -392,25 +396,26 @@ void mapearLetras(char *numero,int *numeroEntero)
 
 void mostrarAyuda()
 {
-    printf("Parametros de invocacion:\n");
-    printf("-n <numero>: admite solo positivos, con la parte entera hasta 10 digitos y la fraccionaria hasta 5 digitos\n");
+    printf("\nParametros de invocacion:\n");
+    printf("-n <numero>: admite solo positivos, con la parte entera hasta 10 digitos y la fraccionaria hasta 5 digitos, separados por un punto.\n");
     printf("-s <base origen> : admite 2 a 16\n");
     printf("-d <base destino> : admite 2 a 16\n");
     printf("-v : muestra computos intermedios\n");
     printf("-h : muestra este mensaje\n");
+    printf("EJ: convert -n 1234.5 -s 8 -d 16 -v\n");
 }
 
 //Se fija si el numero en un arreglo de caracteres es valido en la base ingresada.
 int* esNumeroValido(char* numero, int* base)
 {
     int *toReturn;
-    toReturn= malloc(sizeof(int));
-    *toReturn=1;
     int *i;
-    i= malloc(sizeof(int));
-    *i=0;
     int *fin;
+    toReturn = malloc(sizeof(int));
+    i= malloc(sizeof(int));
     fin= malloc(sizeof(int));
+    *toReturn = 1;
+    *i=0;
     *fin=0;
     switch(*base)
     {
