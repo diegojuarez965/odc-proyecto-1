@@ -160,7 +160,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
         }
         numEntero[*j] = '\0';
         if(*esNumeroValido(numEntero,origen)!=1) {
-            printf("La parte entera del numero ingresado no respeta la base origen ingresada. %s,%s",numEntero,numFraccionario);
+            printf("La parte entera del numero ingresado no respeta la base origen ingresada.");
             exit(EXIT_FAILURE);
         }
         *j = 0;
@@ -405,7 +405,7 @@ int* esNumeroValido(char* numero, int* base)
 {
     int *toReturn;
     toReturn= malloc(sizeof(int));
-    *toReturn=0;
+    *toReturn=1;
     int *i;
     i= malloc(sizeof(int));
     *i=0;
@@ -423,12 +423,10 @@ int* esNumeroValido(char* numero, int* base)
             case '0':
             case '1':
             {
-                *toReturn=1;
                 break;
             }
             default:
             {
-                *toReturn=0;
                 *fin=1;
                 break;
             }
@@ -447,7 +445,6 @@ int* esNumeroValido(char* numero, int* base)
             case '1':
             case '2':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -472,7 +469,6 @@ int* esNumeroValido(char* numero, int* base)
             case '2':
             case '3':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -498,7 +494,6 @@ int* esNumeroValido(char* numero, int* base)
             case '3':
             case '4':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -525,7 +520,6 @@ int* esNumeroValido(char* numero, int* base)
             case '4':
             case '5':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -553,7 +547,6 @@ int* esNumeroValido(char* numero, int* base)
             case '5':
             case '6':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -582,7 +575,6 @@ int* esNumeroValido(char* numero, int* base)
             case '6':
             case '7':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -612,7 +604,6 @@ int* esNumeroValido(char* numero, int* base)
             case '7':
             case '8':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -643,7 +634,6 @@ int* esNumeroValido(char* numero, int* base)
             case '8':
             case '9':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -676,7 +666,6 @@ int* esNumeroValido(char* numero, int* base)
             case 'A':
             case 'a':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -711,7 +700,6 @@ int* esNumeroValido(char* numero, int* base)
             case 'B':
             case 'b':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -748,7 +736,6 @@ int* esNumeroValido(char* numero, int* base)
             case 'C':
             case 'c':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -787,7 +774,6 @@ int* esNumeroValido(char* numero, int* base)
             case 'D':
             case 'd':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -828,7 +814,6 @@ int* esNumeroValido(char* numero, int* base)
             case 'E':
             case 'e':
             {
-                *toReturn=1;
                 break;
             }
             default:
@@ -871,7 +856,6 @@ int* esNumeroValido(char* numero, int* base)
             case 'F':
             case 'f':
             {
-                *toReturn=1;
                 break;
             }
             default:
