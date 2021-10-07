@@ -22,7 +22,6 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
     int *aux;
     int *iPunto;
     int *numeroPos;
-    int *h;
     int *esValido;
     i = (int*)malloc(sizeof(int));
     j = (int*)malloc(sizeof(int));
@@ -32,26 +31,19 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
     if(*cantArg>1 && *cantArg<10)  //Como minimo, debe ser: convert -h, como maximo tendra los 9 parametros.
     {
         *i = 1;
-        *j = 0;
-        while(*i<*cantArg)              //Primero me fijo si todos los caracteres ingresados son validos.
+        while(*i<*cantArg)              //Primero me fijo si hay un -h
         {
-            while(argv[*i][*j]!='\0')
+            if(strcmp(argv[*i],"-h")==0)
             {
-                if(*caracterValido(argv[*i],j)==0)
-                {
-                    printf("Algun caracter ingresado no es valido.");
-                    exit(EXIT_FAILURE);
-                }
-                *j  = *j + 1;
+                mostrarAyuda();
+                exit(EXIT_SUCCESS);
             }
             *i = *i + 1;
         }
         *i = 1;
         *j = 0;
-        h = (int*)malloc(sizeof(int));      //A partir de aca me fijo si se respeta el formato del enunciado
-        aux = (int*)malloc(sizeof(int));
-        numeroPos = (int*)malloc(sizeof(int));     //N guardo su numero sino la posicion en el arreglo de argumentos.
-        *h = 0;
+        aux = (int*)malloc(sizeof(int));        //A partir de aca me fijo si se respeta el formato del enunciado
+        numeroPos = (int*)malloc(sizeof(int));
         *numeroPos = 0;
         while(*i<*cantArg)     //En cada argumento, me fijo si es de algun tipo del formato del enunciado, a lo que pregunto si se repitio.
         {
@@ -113,28 +105,14 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
                     exit(EXIT_FAILURE);
                 }
             }
-            else if(strcmp(argv[*i],"-h")==0)
-            {
-                if(*h==0)
-                {
-                    *h = 1;
-                    mostrarAyuda();
-                    exit(EXIT_SUCCESS);
-                }
-                else
-                {
-                    printf("El formato ingresado no es valido.");
-                    exit(EXIT_FAILURE);
-                }
-            }
             else if(strcmp(argv[*i],"-n")==0)
             {
                 if(*numeroPos==0)
                 {
                     if((*i+1)<*cantArg)
                     {
-                        *numeroPos = *i;
                         *i = *i + 1;
+                        *numeroPos = *i;
                     }
                     else
                     {
@@ -182,7 +160,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
         }
         numEntero[*j] = '\0';
         if(*esNumeroValido(numEntero,origen)!=1) {
-            printf("La parte entera del numero ingresado no respeta la base origen ingresada.");
+            printf("La parte entera del numero ingresado no respeta la base origen ingresada. %s,%s",numEntero,numFraccionario);
             exit(EXIT_FAILURE);
         }
         *j = 0;
@@ -200,7 +178,6 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
         free(iPunto);
         free(aux);
         free(numeroPos);
-        free(h);
     }
     else
     {
@@ -415,57 +392,12 @@ void mapearLetras(char *numero,int *numeroEntero)
 
 void mostrarAyuda()
 {
-    printf("Parámetros de invocación:\n");
+    printf("Parametros de invocacion:\n");
     printf("-n <numero>: admite solo positivos, con la parte entera hasta 10 digitos y la fraccionaria hasta 5 digitos\n");
     printf("-s <base origen> : admite 2 a 16\n");
     printf("-d <base destino> : admite 2 a 16\n");
     printf("-v : muestra computos intermedios\n");
     printf("-h : muestra este mensaje\n");
-}
-
-//Se fija si el caracter indicado por un entero en un arreglo de caracteres es valido segun los posibles caracteres que se puedan recibir segun el formato del enunciado.
-int* caracterValido(char* palabra, int* indice)
-{
-    int *toReturn;
-    toReturn= malloc(sizeof(int));
-    *toReturn=0;
-    switch(palabra[*indice])
-    {
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-    case 'A':
-    case 'a':
-    case 'B':
-    case 'b':
-    case 'C':
-    case 'c':
-    case 'D':
-    case 'd':
-    case 'E':
-    case 'e':
-    case 'F':
-    case 'f':
-    case 'n':
-    case 's':
-    case 'v':
-    case 'h':
-    case '-':
-    case '.':
-    case '\0':
-    {
-        *toReturn=1;
-        break;
-    }
-    }
-    return toReturn;
 }
 
 //Se fija si el numero en un arreglo de caracteres es valido en la base ingresada.

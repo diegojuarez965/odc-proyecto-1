@@ -26,6 +26,10 @@ int main(int argc, char *argv[])
     esValido = (int*)malloc(sizeof(int));
 
     *cantArg = argc;
+
+    *origen = 0;
+    *destino = 0;
+    *v = 0;
     esValido = inputValido(argv,cantArg,numEntero,numFraccionario,origen,destino,v);
     if(*esValido==1){
         inputParteEntera = (int*)malloc(sizeof(int)*10);
