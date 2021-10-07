@@ -1,6 +1,6 @@
 
 int* inputValid(char *argv[], int *argc);
 
-int* mapearLetras(char *letra);
+void mapearLetras(char *numero,int *numeroEntero);
 
 void mostrarAyuda();

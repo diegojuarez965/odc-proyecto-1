@@ -41,12 +41,15 @@
 	<stdlib.h>
 	<stdio.h>
 
-1633535508 source:c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\convert.c
+1633540362 source:c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\convert.c
 	"cambioDeBase.h"
 	"leerInput.h"
 
-1633453079 source:c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\leerinput.c
+1633572961 source:c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\leerinput.c
 	"leerInput.h"
+	"leerInput.h"
+	<stdio.h>
+	<stdlib.h>
 
-1633354068 c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\leerinput.h
+1633575626 c:\users\54291\documents\organizaci”n de computadoras\proyectoodc\proyectoodc\leerinput.h
 
