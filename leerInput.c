@@ -24,7 +24,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
     if(*cantArg>1 && *cantArg<10)  //Como minimo, debe ser: convert -h, como maximo tendra los 9 parametros.
     {
         *i = 1;
-        while(*i<*cantArg)              //Primero me fijo si hay un -h
+        while(*i<*cantArg)              //Primero me fijo si hay un -h.
         {
             if(strcmp(argv[*i],"-h")==0)
             {
@@ -35,7 +35,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
         }
         *i = 1;
         *j = 0;
-        aux = (int*)malloc(sizeof(int));        //A partir de aca me fijo si se respeta el formato del enunciado
+        aux = (int*)malloc(sizeof(int));        //A partir de aca me fijo si se respeta el formato del enunciado.
         numeroPos = (int*)malloc(sizeof(int));
         *numeroPos = 0;
         while(*i<*cantArg)     //En cada argumento, me fijo si es de algun tipo del formato del enunciado, a lo que pregunto si se repitio.
@@ -195,13 +195,12 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
     return esValido;
 }
 
-//Mapea un entero expresado con digitos a un entero expresado con caracteres finalizado en \0.
 void mapearDigitos(char *numero,int *numeroEntero)
 {
     int *i;
     i= malloc(sizeof(int));
     *i=0;
-    while(numeroEntero[*i]!=-1)
+    while(numeroEntero[*i]!=-1)   //Recorro los digitos de numeroEntero, los mapeo a caracter y los ubico en numero.
     {
         switch(numeroEntero[*i])
         {
@@ -292,13 +291,12 @@ void mapearDigitos(char *numero,int *numeroEntero)
     free(i);
 }
 
-//Mapea un entero expresado con caracteres a un entero expresado con dígitos finalizado en -1.
 void mapearLetras(char *numero,int *numeroEntero)
 {
     int *i;
     i= malloc(sizeof(int));
     *i=0;
-    while(numero[*i]!='\0')
+    while(numero[*i]!='\0')   //Recorro los digitos de numero, los mapeo a entero y los ubico en numeroEntero.
     {
         switch(numero[*i])
         {
@@ -406,7 +404,6 @@ void mostrarAyuda()
     printf("EJ: convert -n 1234.5 -s 8 -d 16 -v\n");
 }
 
-//Se fija si el numero en un arreglo de caracteres es valido en la base ingresada.
 int* esNumeroValido(char* numero, int* base)
 {
     int *toReturn;
@@ -418,7 +415,7 @@ int* esNumeroValido(char* numero, int* base)
     *toReturn = 1;
     *i=0;
     *fin=0;
-    switch(*base)
+    switch(*base)   //Obtengo la base en la que se encuentra el numero y verifico si todos sus digitos son aceptados. Esto va a depender de la base en la que se encuentre.
     {
     case 2:
     {

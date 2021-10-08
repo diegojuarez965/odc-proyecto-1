@@ -15,13 +15,12 @@ int *enteroXa10 (int *origen, int *n, int *mostrar)
     *ultDig = 0;
     *expo = 0;
     *suma = 0;
-
     if(*mostrar==1)
         printf("\nConversion de la parte entera desde Base %i a Base 10:\n\n",*origen);
-    while(n[*ultDig]!=-1)
+    while(n[*ultDig]!=-1)    //Ubico el digito menos significativo.
         *ultDig = *ultDig + 1;
     *ultDig = *ultDig - 1;
-    while(*ultDig>=0)
+    while(*ultDig>=0)   //Algoritmo de la multiplicacion para numeros enteros.
     {
         *suma = *suma+(n[*ultDig]*pow(*origen,*expo));
         if(*mostrar==1)
@@ -34,7 +33,7 @@ int *enteroXa10 (int *origen, int *n, int *mostrar)
     }
     free(ultDig);
     free(expo);
-    toReturn = (int *)malloc(sizeof(int)*14);
+    toReturn = (int *)malloc(sizeof(int)*14);    //Ubico cada digito del numero cambiado de base en el puntero a entero que se debe retornar.
     if(*suma==0)
     {
         toReturn[0] = 0;
@@ -91,10 +90,9 @@ int *fraccionXa10 (int * origen, int * n, int * mostrar)
     *it = 0;
     *suma = 0;
     *expo= -1;
-
     if(*mostrar==1)
             printf("\nConversion de la parte fraccionaria desde Base %i a Base 10:\n\n",*origen);
-    while(n[*it]!=-1)
+    while(n[*it]!=-1)   //Algoritmo de la division para numeros fraccionarios.
     {
         *suma= *suma+(n[*it]*pow(*origen,*expo));
         if(*mostrar==1)
@@ -107,7 +105,6 @@ int *fraccionXa10 (int * origen, int * n, int * mostrar)
     }
     free(it);
     free(expo);
-
     toReturn = (int *)malloc(sizeof(int)*6);
     i = (int *)malloc(sizeof(int));
     exp = (int *)malloc(sizeof(int));
@@ -117,8 +114,7 @@ int *fraccionXa10 (int * origen, int * n, int * mostrar)
     *i = 0;
     *exp = 1;
     *termine = 0;
-
-    while(*exp<=5 && *termine==0)
+    while(*exp<=5 && *termine==0)    //Transformo el numero cambiado de base a entero para poder extraerle los digitos y ubicarlos en el puntero a entero que se debe retornar.
     {
         *entero = *suma*(pow(10,*exp));
         if(*entero==*suma*(pow(10,*exp)))
@@ -174,13 +170,13 @@ int * entero10aX(int *destino, int *n, int *mostrar)
     }
     else
     {
-        resultadoTentativo = (int*)malloc(sizeof(int)*40);                        //Le asigno este tamaño ya que no le pusimos limite a la parte entera.
+        resultadoTentativo = (int*)malloc(sizeof(int)*40);                          //Se asigna este tamaño ya que la conversion de base de un entero mas larga va a ocupar 40 digitos: (FFFFFFFFFF) de base 16 a base 2.
         dividendo = (long long unsigned int*)malloc(sizeof(long long unsigned int));
         resto = (long long unsigned int*)malloc(sizeof(long long unsigned int));
         *dividendo = *numero;
         free(numero);
         *i = 0;
-        while(*dividendo!=0)    //Realizo el algoritmo de la division para la parte entera almacenando cada digito en cada celda de resultadoTentativo
+        while(*dividendo!=0)    //Realizo el algoritmo de la division para la parte entera almacenando cada digito en cada celda de resultadoTentativo.
         {
             *resto = *dividendo % *destino;
             resultadoTentativo[*i] = *resto;
@@ -194,7 +190,7 @@ int * entero10aX(int *destino, int *n, int *mostrar)
         resultadoFinal = (int*)malloc(sizeof(int)*((*i)+1)); //Le sumo uno, ya que necesito agregar el digito finalizador '-1'.
         j = (int*)malloc(sizeof(int));
         *j = 0;
-        while(*i>0)  //Finalmente ordeno los digitos que obtuve guardandolos en resultadoFinal
+        while(*i>0)  //Finalmente ordeno los digitos que obtuve guardandolos en resultadoFinal.
         {
             resultadoFinal[*j] = resultadoTentativo[(*i)-1];
             *j = *j + 1;
