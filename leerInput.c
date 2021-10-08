@@ -1,22 +1,15 @@
 #include "leerInput.h"
-#include "leerInput.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
+void mapearDigitos(char *numero,int *numeroEntero);
 
 void mapearLetras(char *numero,int *numeroEntero);
 
 void mostrarAyuda();
 
-int* caracterValido(char* palabra, int* indice);
-
 int* esNumeroValido(char* numero, int* base);
-
-int* esArgumento(char* palabra, char* argumento);
 
 int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFraccionario, int *origen, int *destino, int *v)
 {
-
     int *i;
     int *j;
     int *aux;
@@ -55,7 +48,8 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
                     if((*i+1)<*cantArg && *esNumeroValido(argv[*i+1],aux))
                     {
                         *origen = atoi(argv[*i+1]);
-                        if(*origen<2 || *origen>16){
+                        if(*origen<2 || *origen>16)
+                        {
                             printf("La base origen ingresada no pertenece al rango [2,16].\n");
                             exit(EXIT_FAILURE);
                         }
@@ -81,7 +75,8 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
                     if((*i+1)<*cantArg && *esNumeroValido(argv[*i+1],aux))
                     {
                         *destino = atoi(argv[*i+1]);
-                        if(*destino<2 || *destino>16){
+                        if(*destino<2 || *destino>16)
+                        {
                             printf("La base destino ingresada no pertenece al rango [2,16].\n");
                             exit(EXIT_FAILURE);
                         }
@@ -144,8 +139,9 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
             *destino = 10;
 
         while(argv[*numeroPos][*i]!='.' && argv[*numeroPos][*i]!='\0')    //Me fijo que el numero respete la cantidad de digitos establecida, 10 para la entera y 5 para la fraccionaria.
-                *i = *i + 1;
-        if((argv[*numeroPos][*i]=='.' || argv[*numeroPos][*i]=='\0') && *i>10){
+            *i = *i + 1;
+        if((argv[*numeroPos][*i]=='.' || argv[*numeroPos][*i]=='\0') && *i>10)
+        {
             printf("El numero ingresado excede el limite de 10 digitos enteros.\n");
             exit(EXIT_FAILURE);
         }
@@ -153,27 +149,32 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
         *iPunto = *i;
         while(argv[*numeroPos][*i]!='\0')
             *i = *i + 1;
-        if(argv[*numeroPos][*i]=='\0' && ((*i-1)-*iPunto)>5){
+        if(argv[*numeroPos][*i]=='\0' && ((*i-1)-*iPunto)>5)
+        {
             printf("El numero ingresado excede el limite de 5 digitos fraccionarios.\n");
             exit(EXIT_FAILURE);
         }
         *j = 0;
-        while(*j<*iPunto){       //Checkeo que la parte entera y la fraccionaria esten en la base origen.
+        while(*j<*iPunto)        //Checkeo que la parte entera y la fraccionaria esten en la base origen.
+        {
             numEntero[*j] = argv[*numeroPos][*j];
             *j = *j + 1;
         }
         numEntero[*j] = '\0';
-        if(*esNumeroValido(numEntero,origen)!=1) {
+        if(*esNumeroValido(numEntero,origen)!=1)
+        {
             printf("La parte entera del numero ingresado no respeta la base origen ingresada.\n");
             exit(EXIT_FAILURE);
         }
         *j = 0;
-        while(*j<((*i-1)-*iPunto)){
+        while(*j<((*i-1)-*iPunto))
+        {
             numFraccionario[*j] = argv[*numeroPos][*j+*iPunto+1];
             *j = *j + 1;
         }
         numFraccionario[*j] = '\0';
-        if(*esNumeroValido(numFraccionario,origen)!=1){
+        if(*esNumeroValido(numFraccionario,origen)!=1)
+        {
             printf("La parte fracionaria del numero ingresado no respeta la base origen ingresada.\n");
             exit(EXIT_FAILURE);
         }
@@ -194,7 +195,7 @@ int* inputValido(char *argv[], int *cantArg, char *numEntero, char *numFracciona
     return esValido;
 }
 
-//Mapea un entero expresado con digitos a un entero expresado con caracteres.
+//Mapea un entero expresado con digitos a un entero expresado con caracteres finalizado en \0.
 void mapearDigitos(char *numero,int *numeroEntero)
 {
     int *i;
@@ -423,20 +424,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
-            {
-            case '0':
-            case '1':
-            {
-                break;
-            }
-            default:
+            if(numero[*i]>='0' && numero[*i]<='1')
+                *i=*i+1;
+            else
             {
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -444,22 +438,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if(numero[*i]>='0' && numero[*i]<='2')
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -467,23 +452,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if(numero[*i]>='0' && numero[*i]<='3')
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -491,24 +466,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if(numero[*i]>='0' && numero[*i]<='4')
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -516,25 +480,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if(numero[*i]>='0' && numero[*i]<='5')
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -542,26 +494,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if(numero[*i]>='0' && numero[*i]<='6')
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -569,27 +508,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if(numero[*i]>='0' && numero[*i]<='7')
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -597,28 +522,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if(numero[*i]>='0' && numero[*i]<='8')
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -626,29 +536,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if(numero[*i]>='0' && numero[*i]<='9')
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -656,31 +550,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if((numero[*i]>='0' && numero[*i]<='9') || numero[*i]=='A' || numero[*i]=='a')
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            case 'A':
-            case 'a':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -688,33 +564,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if((numero[*i]>='0' && numero[*i]<='9') || (numero[*i]>='A' && numero[*i]<='B') || (numero[*i]>='a' && numero[*i]<='b'))
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            case 'A':
-            case 'a':
-            case 'B':
-            case 'b':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -722,35 +578,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if((numero[*i]>='0' && numero[*i]<='9') || (numero[*i]>='A' && numero[*i]<='C') || (numero[*i]>='a' && numero[*i]<='c'))
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            case 'A':
-            case 'a':
-            case 'B':
-            case 'b':
-            case 'C':
-            case 'c':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -758,37 +592,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if((numero[*i]>='0' && numero[*i]<='9') || (numero[*i]>='A' && numero[*i]<='D') || (numero[*i]>='a' && numero[*i]<='d'))
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            case 'A':
-            case 'a':
-            case 'B':
-            case 'b':
-            case 'C':
-            case 'c':
-            case 'D':
-            case 'd':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -796,39 +606,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if((numero[*i]>='0' && numero[*i]<='9') || (numero[*i]>='A' && numero[*i]<='E') || (numero[*i]>='a' && numero[*i]<='e'))
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            case 'A':
-            case 'a':
-            case 'B':
-            case 'b':
-            case 'C':
-            case 'c':
-            case 'D':
-            case 'd':
-            case 'E':
-            case 'e':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
@@ -836,41 +620,13 @@ int* esNumeroValido(char* numero, int* base)
     {
         while(numero[*i]!='\0' && *fin==0)
         {
-            switch(numero[*i])
+            if((numero[*i]>='0' && numero[*i]<='9') || (numero[*i]>='A' && numero[*i]<='F') || (numero[*i]>='a' && numero[*i]<='f'))
+                *i=*i+1;
+            else
             {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            case 'A':
-            case 'a':
-            case 'B':
-            case 'b':
-            case 'C':
-            case 'c':
-            case 'D':
-            case 'd':
-            case 'E':
-            case 'e':
-            case 'F':
-            case 'f':
-            {
-                break;
-            }
-            default:
-            {
-                *toReturn=0;
                 *fin=1;
-                break;
+                *toReturn=0;
             }
-            }
-            *i=*i+1;
         }
         break;
     }
