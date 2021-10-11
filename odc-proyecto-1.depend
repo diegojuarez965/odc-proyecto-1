@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1633716751 source:g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\convert.c
+1633979692 source:g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\convert.c
 	"cambioDeBase.h"
 	"leerInput.h"
 
-1633721913 source:g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\cambiodebase.c
+1633727666 source:g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\cambiodebase.c
 	"cambioDeBase.h"
 
 1633721913 g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\cambiodebase.h
@@ -11,10 +11,10 @@
 	<stdlib.h>
 	<stdio.h>
 
-1633721913 source:g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\leerinput.c
+1633727666 source:g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\leerinput.c
 	"leerInput.h"
 
-1633722043 g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\leerinput.h
+1633908216 g:\joaquin\joaquin2\uni\organizacion de computadoras\proyecto\odc-proyecto-1\leerinput.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

@@ -34,8 +34,12 @@ int main(int argc, char *argv[])
             printf("\nConversion de Base %i a Base %i\n\n",*origen,*destino);
             if(*v==1)
                 printf("\nNo hace falta hacer ningun paso intermedio.\n\n");
-            if(numFraccionario[0]=='\0')
+            if(numFraccionario[0]=='\0' && numEntero[0]=='\0')
+                printf("\nEl resultado es: 0.0\n");
+            else if(numFraccionario[0]=='\0' && numEntero[0]!='\0')
                 printf("\nEl resultado es: %s.0\n",numEntero);
+            else if(numFraccionario[0]!='\0' && numEntero[0]=='\0')
+                printf("\nEl resultado es: 0.%s\n",numFraccionario);
             else
                 printf("\nEl resultado es: %s.%s\n",numEntero,numFraccionario);
         }
